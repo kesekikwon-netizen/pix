@@ -1,0 +1,6 @@
+{
+  "$schema": "https://example.com/cpp-project.json",
+  "build": "cmake -S . -B build -G Ninja",
+  "test": "ctest --test-dir build --output-on-failure",
+  "run": ".\\build\\pix4d_edit.exe"
+}

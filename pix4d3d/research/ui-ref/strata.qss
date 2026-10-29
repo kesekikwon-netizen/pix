@@ -1,0 +1,210 @@
+/* =====================================================================
+   strata.qss — 발굴 단면뷰어용 「조용한 도판」 스타일시트 초안 (Qt 6.8 Widgets)
+   출처: Strata 디자인 개선안 2차(reference.html) 7장 「기준」의 색·글꼴·간격·부품
+   적용: app/theme.hpp 의 styleSheet() 를 이 내용으로 바꾸거나 :/strata.qss 로 읽어 app.setStyleSheet().
+   - 기존 objectName(ribbon, ribbonTabs, groupLabel, groupSep, viewFrame, viewTitle, viewBar,
+     coordBar, coord, coordKey, statusMsg, statusInfo, viewNum, primary, hint, calc, brand)을 그대로 씀.
+   - 새 objectName(ribbonTile, ctxBar, sectionList, heightBadge, notice, kbd, quiet, danger, figure,
+     mono, title, lodCard, chip)은 「제안」 — 코드에서 setObjectName / setProperty 해야 적용됨.
+   - QSS 에는 변수가 없어 hex 를 직접 씀. 아래 표가 원본 토큰.
+       ground #FAF9F5  surface #FFFFFF  wash #F5F4ED  desk #F0EEE6  press #E8E6DC  oat #E3DACC
+       ink #141413  hand #30302E  ink2 #3D3D3A  muted #5E5D59  faint #73726C
+       line #DEDCD1  edge #C2C0B6  ring #B0AEA5  checkEdge #87867F
+       action #B5573A (hover #A44D32, press #8F4229)  clay #D97757  clayText #9C4A2F
+       block #A33B3B  blockWash #F3DEDA  caution #7A5A00  done #3F6B31
+   - 그림자(box-shadow)는 QSS 미지원 → 뜬 것(메뉴·풍선·LOD 카드)은 QGraphicsDropShadowEffect
+     (blur 12, offset 0,2, rgba(20,20,19,0.12)) 로 코드에서.
+   - 글꼴 대체 목록은 QSS 보다 QApplication::setFont(QFont::setFamilies({"Malgun Gothic","Noto Sans KR"})) 가 안전.
+   ===================================================================== */
+
+/* ---------- 바탕 · 글자 ---------- */
+QMainWindow, QWidget#central { background: #FAF9F5; }
+QWidget { color: #141413; font-size: 13px; }
+QLabel#hint, QLabel#statusInfo { color: #5E5D59; font-size: 12px; }
+QLabel#faint { color: #73726C; font-size: 11px; }
+QLabel#title { font-family: "Noto Serif KR"; font-size: 20px; font-weight: 500; color: #141413; }  /* 단면 이름 A–A′ 등 */
+QLabel#mono, QLineEdit#mono { font-family: Consolas, "JetBrains Mono"; font-size: 12px; }
+QLabel#figure { font-family: Consolas, "JetBrains Mono"; font-size: 20px; }                         /* 측정 결과 큰 숫자 */
+
+/* ---------- 리본 ---------- */
+QWidget#ribbon { background: #FFFFFF; border-bottom: 1px solid #DEDCD1; }
+QTabBar#ribbonTabs { background: #FFFFFF; }
+QTabBar#ribbonTabs::tab {
+    background: transparent; border: none; padding: 7px 16px 8px 16px; margin: 0;
+    color: #3D3D3A; font-size: 13px;
+}
+QTabBar#ribbonTabs::tab:hover { color: #141413; }
+QTabBar#ribbonTabs::tab:selected { color: #141413; font-weight: 700; border-bottom: 2px solid #141413; }
+/* 기존 「파일」 첫 탭의 흙색 채움은 없앰(흙색은 주 단추 하나에만) */
+QTabBar#ribbonTabs::tab:first { background: transparent; color: #3D3D3A; font-weight: 400; margin-right: 0; }
+QTabBar#ribbonTabs::tab:first:selected { color: #141413; font-weight: 700; border-bottom: 2px solid #141413; }
+QLabel#brand { color: #73726C; font-size: 11px; padding-right: 12px; }
+QLabel#groupLabel { color: #5E5D59; font-size: 11px; font-weight: 700; }   /* 묶음 이름: 위 왼쪽, 11/700 */
+QFrame#groupSep { background: #DEDCD1; max-width: 1px; min-width: 1px; }
+
+/* 리본 큰 단추(타일) — 50×50 면 + 아래 13px 글자. QToolButton(ToolButtonTextUnderIcon), iconSize 28 */
+QToolButton#ribbonTile {
+    min-width: 58px; max-width: 64px; padding: 0 0 2px 0;
+    border: 1px solid transparent; border-radius: 8px; background: transparent;
+    color: #141413; font-size: 13px;
+}
+QToolButton#ribbonTile:hover { background: #F5F4ED; border-color: #C2C0B6; }      /* 올려놓음 */
+QToolButton#ribbonTile:pressed { background: #E8E6DC; }                          /* 누름 */
+QToolButton#ribbonTile:checked { background: #E3DACC; border-color: #B0AEA5; }   /* 켜짐·보임(입면 영상·단면선·레벨선) */
+QToolButton#ribbonTile[tool="true"]:checked {                                    /* 손에 든 도구(단면선 그리기·재기) */
+    background: #30302E; border-color: #30302E; color: #FAF9F5; font-weight: 700;
+}
+QToolButton#ribbonTile[primary="true"] { background: #B5573A; border-color: #B5573A; color: #FFFFFF; font-weight: 700; }
+QToolButton#ribbonTile[primary="true"]:hover { background: #A44D32; }
+QToolButton#ribbonTile[primary="true"]:pressed { background: #8F4229; }
+QToolButton#ribbonTile:disabled { color: #73726C; }
+
+/* 일반 QToolButton(작은 단추·보기 머리 단추) */
+QToolButton { border: 1px solid transparent; border-radius: 4px; padding: 2px 6px; background: transparent; color: #141413; }
+QToolButton:hover { background: #F5F4ED; border-color: #C2C0B6; }
+QToolButton:pressed { background: #E8E6DC; }
+QToolButton:checked { background: #E3DACC; border-color: #B0AEA5; }
+QToolButton:focus { border: 2px solid #141413; }
+QToolButton:disabled { color: #73726C; }
+QToolButton::menu-indicator { width: 8px; subcontrol-position: right center; }
+
+/* 붙은 선택 단추(뒤 깊이 0.5·1·2·5 m, 축척 1:10·1:20·1:40) */
+QToolButton#chip { min-height: 22px; padding: 0 8px; border: 1px solid #C2C0B6; border-radius: 0; background: #FFFFFF;
+                   font-family: Consolas, "JetBrains Mono"; font-size: 12px; }
+QToolButton#chip:checked { background: #E3DACC; border-color: #141413; }
+QToolButton#chip[pos="first"] { border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
+QToolButton#chip[pos="last"] { border-top-right-radius: 8px; border-bottom-right-radius: 8px; }
+
+/* ---------- 지금 도구 줄(리본 아래, 그리는 중에만) ---------- */
+QWidget#ctxBar { background: #F5F4ED; border-bottom: 1px solid #DEDCD1; min-height: 40px; max-height: 40px; }
+QWidget#ctxBar QLabel { font-size: 12px; }
+QLabel#kbd { font-family: Consolas, "JetBrains Mono"; font-size: 11px; color: #3D3D3A; background: #FFFFFF;
+             border: 1px solid #C2C0B6; border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; }
+
+/* ---------- 보기 창(평면 · 단면) ---------- */
+QWidget#viewFrame { background: #FFFFFF; border: 1px solid #DEDCD1; }
+QWidget#viewTitle { background: #FFFFFF; border-bottom: 1px solid #DEDCD1; min-height: 32px; }
+QWidget#viewTitle[active="true"] { background: #FFFFFF; border-bottom: 2px solid #141413; }   /* 흙색 그라데이션 → 먹색 밑줄 */
+QLabel#viewTitleText { font-weight: 700; color: #141413; padding-left: 4px; }
+QWidget#viewBar { background: #F5F4ED; border-bottom: 1px solid #DEDCD1; }
+QWidget#viewBar QToolButton { padding: 2px; border-radius: 4px; }
+
+/* 높이 기준 표(항상 보임) */
+QLabel#heightBadge { background: #F5F4ED; border: 1px solid #C2C0B6; border-radius: 4px; padding: 2px 8px; font-size: 12px; color: #141413; }
+QLabel#heightBadge[state="warn"] { background: #FFFFFF; border-color: #7A5A00; color: #7A5A00; }   /* 타원체고 의심 등 — 세모 + 글자 */
+QLabel#heightBadge[state="error"] { background: #F3DEDA; border-color: #A33B3B; color: #A33B3B; }  /* SRS 없음 */
+
+/* 보기 번호(Descartes 식 1–8) — 남기되 흙색 대신 먹색 */
+QToolButton#viewNum { min-width: 20px; max-width: 20px; min-height: 20px; max-height: 20px; padding: 0;
+                      border: 1px solid #C2C0B6; border-radius: 4px; background: #FFFFFF;
+                      font-family: Consolas, "JetBrains Mono"; font-size: 11px; }
+QToolButton#viewNum:checked { background: #30302E; color: #FAF9F5; border-color: #30302E; }
+QToolButton#viewNum:disabled { background: #F0EEE6; color: #73726C; border-color: #DEDCD1; }
+
+/* 평면 위 뜬 조각(LOD 불러오기 카드, 측정 풍선) — 그림자는 코드에서 */
+QFrame#lodCard { background: #FFFFFF; border: 1px solid #C2C0B6; border-radius: 8px; padding: 8px 10px; }
+QFrame#lodCard QProgressBar { max-height: 4px; min-height: 4px; border: none; background: #E8E6DC; border-radius: 2px; }
+QFrame#lodCard QProgressBar::chunk { background: #141413; border-radius: 2px; }
+
+/* ---------- 단면 목록(왼쪽 판) ---------- */
+QListView#sectionList, QTreeView#sectionList { background: #FFFFFF; border: none; border-right: 1px solid #DEDCD1; outline: 0; }
+QListView#sectionList::item { min-height: 56px; padding: 6px 12px; border-bottom: 1px solid #DEDCD1; color: #141413; }
+QListView#sectionList::item:hover { background: #F5F4ED; }
+QListView#sectionList::item:selected { background: #E3DACC; color: #141413; border-left: 3px solid #141413; }
+
+/* ---------- 아래 좌표줄 · 상태 ---------- */
+QWidget#coordBar { background: #FFFFFF; border-top: 1px solid #DEDCD1; min-height: 30px; }
+QLabel#coordKey { color: #5E5D59; font-weight: 400; font-size: 12px; padding: 0 2px 0 10px; }
+QLineEdit#coord { font-family: Consolas, "JetBrains Mono"; font-size: 12px; background: transparent; border: none;
+                  padding: 0 4px; min-height: 20px; qproperty-alignment: 'AlignRight|AlignVCenter'; }
+QLineEdit#coord:focus { background: #FFFFFF; border: 2px solid #141413; border-radius: 4px; }
+QLabel#statusMsg { color: #141413; font-size: 12px; padding: 0 10px; }
+
+/* ---------- 입력 칸 ---------- */
+QDoubleSpinBox, QSpinBox, QComboBox, QLineEdit {
+    background: #FFFFFF; border: 1px solid #C2C0B6; border-radius: 4px; padding: 2px 6px; min-height: 22px;
+    selection-background-color: #E3DACC; selection-color: #141413;
+}
+QDoubleSpinBox, QSpinBox { font-family: Consolas, "JetBrains Mono"; font-size: 12px; }
+QDoubleSpinBox:hover, QSpinBox:hover, QComboBox:hover, QLineEdit:hover { border-color: #B0AEA5; }
+QDoubleSpinBox:focus, QSpinBox:focus, QComboBox:focus, QLineEdit:focus { border: 2px solid #141413; padding: 1px 5px; }
+QDoubleSpinBox:disabled, QSpinBox:disabled, QComboBox:disabled, QLineEdit:disabled { background: #F0EEE6; color: #73726C; }
+QLineEdit[invalid="true"], QDoubleSpinBox[invalid="true"] { border: 1px solid #A33B3B; }
+QComboBox::drop-down { width: 20px; border: none; }
+QComboBox QAbstractItemView { background: #FFFFFF; border: 1px solid #C2C0B6; selection-background-color: #E3DACC; selection-color: #141413; outline: 0; }
+
+/* ---------- 체크 · 고르기 (켜짐은 먹색) ---------- */
+QCheckBox, QRadioButton { spacing: 8px; }
+QCheckBox::indicator { width: 14px; height: 14px; border: 1px solid #87867F; border-radius: 2px; background: #FFFFFF; }
+QCheckBox::indicator:checked { background: #141413; border-color: #141413; image: url(:/icons/check-white.svg); }
+QRadioButton::indicator { width: 14px; height: 14px; border: 1px solid #87867F; border-radius: 7px; background: #FFFFFF; }
+QRadioButton::indicator:checked { border: 4px solid #141413; background: #FFFFFF; }
+
+/* ---------- 슬라이더(영상 불투명도) ---------- */
+QSlider::groove:horizontal { height: 4px; background: #E8E6DC; border-radius: 2px; }
+QSlider::sub-page:horizontal { background: #141413; border-radius: 2px; }
+QSlider::handle:horizontal { width: 14px; margin: -6px 0; border-radius: 7px; background: #FFFFFF; border: 1px solid #87867F; }
+
+QSplitter::handle { background: #DEDCD1; }
+QSplitter::handle:horizontal { width: 1px; }
+QSplitter::handle:vertical { height: 1px; }
+
+/* ---------- 단추 (높이 32, 반지름 8, 흙색 면은 창마다 하나) ---------- */
+QPushButton { background: #FFFFFF; border: 1px solid #C2C0B6; border-radius: 8px; padding: 6px 16px; min-height: 18px; color: #141413; }
+QPushButton:hover { background: #F5F4ED; border-color: #B0AEA5; }
+QPushButton:pressed { background: #E8E6DC; }
+QPushButton:focus { border: 2px solid #141413; }
+QPushButton:disabled { color: #73726C; background: #F0EEE6; border-color: #DEDCD1; }
+QPushButton#primary { background: #B5573A; color: #FFFFFF; border-color: #B5573A; font-weight: 700; }
+QPushButton#primary:hover { background: #A44D32; border-color: #A44D32; }
+QPushButton#primary:pressed { background: #8F4229; }
+QPushButton#primary:focus { border: 2px solid #141413; }
+QPushButton#quiet { background: transparent; border-color: transparent; }
+QPushButton#quiet:hover { background: #F5F4ED; }
+QPushButton#danger { background: #FFFFFF; color: #A33B3B; border-color: #A33B3B; }
+
+/* ---------- 창(대화상자) — 폭 S 440 · M 560 · L 860, 여백 24 ---------- */
+QDialog { background: #FAF9F5; }
+QDialog QLabel#dialogQuestion { font-family: "Noto Serif KR"; font-size: 20px; font-weight: 500; }
+QGroupBox { border: none; border-top: 1px solid #DEDCD1; margin-top: 18px; padding-top: 10px; background: transparent; }
+QGroupBox::title { subcontrol-origin: margin; left: 0; padding: 0 8px 0 0; color: #5E5D59; font-size: 11px; font-weight: 400; }
+QLabel#calc { background: #FFFFFF; border: none; border-top: 1px solid #141413; border-bottom: 1px solid #DEDCD1; padding: 6px 0; color: #141413; }
+
+/* ---------- 알림 띠(보기 맨 위에 붙음, 뜨는 알림 없음) ---------- */
+QFrame#notice { background: #FFFFFF; border: none; border-bottom: 1px solid #DEDCD1; padding: 6px 12px; }
+QFrame#notice[level="caution"] QLabel { color: #141413; }      /* 앞에 ▲(#7A5A00) 아이콘 */
+QFrame#notice[level="done"] QLabel { color: #141413; }         /* 앞에 ✓(#3F6B31) 아이콘 */
+QFrame#notice[level="block"] { background: #F3DEDA; }
+QFrame#notice[level="block"] QLabel { color: #A33B3B; }
+
+/* ---------- 진행 막대 — 먹색 4 px, 숫자는 모노 ---------- */
+QProgressBar { border: none; background: #E8E6DC; border-radius: 2px; max-height: 4px; min-height: 4px; text-align: right; font-size: 0px; }
+QProgressBar::chunk { background: #141413; border-radius: 2px; }
+
+/* ---------- 메뉴 · 풍선말 ---------- */
+QMenu { background: #FFFFFF; border: 1px solid #C2C0B6; border-radius: 8px; padding: 4px; }
+QMenu::item { min-height: 24px; padding: 4px 28px 4px 12px; border-radius: 4px; }
+QMenu::item:selected { background: #F5F4ED; color: #141413; }
+QMenu::item:disabled { color: #73726C; }
+QMenu::separator { height: 1px; background: #DEDCD1; margin: 4px 8px; }
+QMenu::indicator:checked { image: url(:/icons/check-ink.svg); }
+QToolTip { background: #30302E; color: #FAF9F5; border: none; border-radius: 4px; padding: 4px 8px; font-size: 12px; }
+
+/* ---------- 스크롤 ---------- */
+QScrollBar:vertical { width: 10px; background: transparent; margin: 0; }
+QScrollBar::handle:vertical { background: #C2C0B6; border-radius: 4px; min-height: 24px; margin: 2px; }
+QScrollBar:horizontal { height: 10px; background: transparent; margin: 0; }
+QScrollBar::handle:horizontal { background: #C2C0B6; border-radius: 4px; min-width: 24px; margin: 2px; }
+QScrollBar::add-line, QScrollBar::sub-line { width: 0; height: 0; }
+QScrollBar::add-page, QScrollBar::sub-page { background: transparent; }
+
+/* =====================================================================
+   고대비 화면(햇빛 아래 · 보기 메뉴) — 위 시트 뒤에 덧붙여 쓰는 덮어쓰기
+   line → #87867F · edge → #73726C · muted → #3D3D3A · faint → #5E5D59 · 켜진 타일 테는 먹색
+   (별도 파일 strata-contrast.qss 로 나누는 것을 권장)
+   =====================================================================
+QWidget#ribbon, QWidget#viewTitle, QWidget#coordBar { border-color: #87867F; }
+QDoubleSpinBox, QSpinBox, QComboBox, QLineEdit, QPushButton { border-color: #73726C; }
+QLabel#hint, QLabel#statusInfo, QLabel#groupLabel, QLabel#coordKey { color: #3D3D3A; }
+QToolButton#ribbonTile:checked, QToolButton:checked { border-color: #141413; }
+*/

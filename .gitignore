@@ -1,0 +1,8 @@
+# 원본 desca 체크아웃은 별도 Git 저장소로 유지
+/desca/
+
+# PIX4D 설치 파일과 로컬 분석·빌드 산출물은 제외
+/work/
+/Pix4Dmapper-*.msi
+/PIX4Dmatic-Setup-*.exe
+/build*/

@@ -1,0 +1,80 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><link rel="stylesheet" href="common.css">
+<style>
+body{width:1000px;height:720px;background:#8a8880}
+.dlg{position:absolute;left:70px;top:40px;width:860px;height:640px;background:var(--ground);border-radius:12px;box-shadow:0 18px 48px rgba(20,20,19,.22),0 2px 8px rgba(20,20,19,.1);overflow:hidden}
+.dh{height:44px;display:flex;align-items:center;padding:0 24px;font-weight:700;border-bottom:1px solid var(--line);background:var(--surface)}
+.dh .sp{flex:1}
+.body{display:flex;height:532px}
+.prev{flex:1;background:var(--desk);position:relative;border-right:1px solid var(--line)}
+.paper{position:absolute;left:28px;top:40px;width:470px;height:332px;background:#fff;box-shadow:0 2px 12px rgba(20,20,19,.12)}
+.form{width:330px;padding:16px 24px;overflow:hidden}
+.sec{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);margin:10px 0 8px}
+.sec:after{content:"";flex:1;height:1px;background:var(--line)}
+.fr{display:flex;align-items:center;height:32px;margin-bottom:6px}
+.fr label{width:84px;font-size:12px;color:var(--muted)}
+.sel{flex:1;height:32px;border:1px solid var(--edge);border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 10px}
+.seg{display:flex;flex:1}.seg span{flex:1;height:32px;border:1px solid var(--edge);margin-left:-1px;display:flex;align-items:center;justify-content:center;background:#fff;font:12px var(--mono)}
+.seg span:first-child{border-radius:8px 0 0 8px;margin-left:0}.seg span:last-child{border-radius:0 8px 8px 0}.seg span.on{background:var(--oat);border-color:var(--ink);z-index:1;position:relative}
+.df{height:64px;display:flex;align-items:center;gap:8px;padding:0 24px;border-top:1px solid var(--line);background:var(--surface)}
+.df .sp{flex:1}
+.warn{position:absolute;left:28px;right:28px;bottom:58px;display:flex;gap:8px;align-items:flex-start;font-size:12px;line-height:18px;background:#fff;border:1px solid var(--edge);border-radius:8px;padding:8px 10px}
+.tri{color:var(--caution);font-weight:700}
+.pbar{position:absolute;left:28px;right:28px;bottom:18px;display:flex;gap:8px;align-items:center;font-size:12px}
+</style></head><body>
+<div class="dlg">
+ <div class="dh">단면도 내보내기 <span class="faint" style="font-weight:400;margin-left:8px">A–A′ · 3개 중 1번째</span><span class="sp"></span><span class="faint">✕</span></div>
+ <div class="body">
+  <div class="prev">
+   <div style="position:absolute;left:28px;top:12px;font-size:12px" class="muted">미리보기 · <span class="mono" style="color:var(--ink)">A4 가로 · 1:40 · 실제 크기 비율</span></div>
+   <div class="paper"><svg id="pp" width="470" height="332"></svg></div>
+   <div class="warn"><span class="tri">▲</span><div>1:40에서 단면 길이 38.00 m는 <span class="mono">950 mm</span>라 A4 한 장에 들어가지 않습니다. 지금은 <b>A′ 쪽 9.5 m만</b> 들어갑니다.<br><span style="color:var(--clayText)">추천</span> 1:100으로 줄이거나, A3 가로 4장으로 나눠 붙이기</div></div>
+   <div class="pbar"><span class="sbtn">항목 이동</span><span class="sbtn on">화면 이동</span><span class="sbtn">전체 보기</span><span style="flex:1"></span><span class="faint">휠: 확대 · 끌기: 범위 옮기기</span></div>
+  </div>
+  <div class="form">
+   <div class="sec" style="margin-top:0">도면</div>
+   <div class="fr"><label>도면명</label><div class="sel" style="justify-content:flex-start;font-family:var(--serif)">A–A′ 단면도 · 1호 수혈</div></div>
+   <div class="fr"><label>용지</label><div class="sel">A4 가로<span class="faint">▾</span></div></div>
+   <div class="fr"><label>축척</label><div class="seg"><span>1:10</span><span>1:20</span><span class="on">1:40</span><span>1:100</span><span>맞춤</span></div></div>
+   <div class="sec">표고 · 거리 눈금</div>
+   <div class="fr"><label>레벨선</label><span class="input" style="width:76px;height:32px">0.10<span class="u">m</span></span><span class="muted" style="font-size:12px;margin:0 6px 0 10px;white-space:nowrap">숫자</span><span class="input" style="width:76px;height:32px">0.50<span class="u">m</span></span></div>
+   <div class="fr"><label>기준선</label><span class="check" style="margin-right:10px"><i class="on"></i></span><span class="input" style="flex:1;height:32px;justify-content:flex-start">EL. 57.00<span class="u">m</span></span></div>
+   <div class="sec">넣을 것 <span class="faint">· 위에서 아래로 그리는 순서</span></div>
+   <div class="check" style="margin-bottom:6px"><i class="on"></i>단면선 <span class="faint">(맨 위 · 빨강 0.35 mm)</span></div>
+   <div class="check" style="margin-bottom:6px"><i class="on"></i>입면 영상 <span class="faint">(뒤 5.0 m)</span></div>
+   <div class="check" style="margin-bottom:6px"><i class="on"></i>레벨선과 숫자 <span class="faint">(맨 뒤)</span></div>
+   <div class="check" style="margin-bottom:6px"><i class="on"></i>표제란 · 축척 막대 · 방위</div>
+   <div class="sec">파일</div>
+   <div class="fr"><label>형식</label><div class="seg"><span class="on">PDF</span><span>DXF</span><span>PNG</span><span>TIFF</span></div></div>
+   <div class="faint" style="font-size:11px;line-height:16px">높이 기준 <b style="color:var(--ink)">EGM96 (EPSG:5773)</b>이 표제란과 파일 속성에 들어갑니다.</div>
+  </div>
+ </div>
+ <div class="df"><span class="btn quiet">이 설정을 기본으로</span><span class="sp"></span><span class="btn primary">PDF 저장</span><span class="btn">인쇄…</span><span class="btn">취소</span></div>
+</div>
+<script>
+// 용지 미리보기: 1:40, A4 가로 297×210 mm → 470 px (1.582 px/mm)
+const pm=470/297, s=pm*1000/40; // px per m on paper
+let o='';
+const fx=18, fy=14, fw=470-36, fh=332-28-46;
+o+=`<rect x="${fx}" y="${fy}" width="${fw}" height="${fh+46}" fill="none" stroke="#141413" stroke-width="1"/>`;
+// 그림 영역 (레벨선 맨 뒤)
+const gx=fx+44, gy=fy+14, gw=fw-58, gh=fh-14, zTop=61.0;
+let lv='';
+for(let i=0;i<=Math.floor(gh/(s*0.1));i++){const z=Math.round((zTop-i*0.1)*10)/10,y=gy+i*s*0.1,maj=Math.abs(z*2-Math.round(z*2))<1e-6;
+ lv+=`<line x1="${gx}" x2="${gx+gw}" y1="${y}" y2="${y}" stroke="${maj?'#9C9A92':'#E3E1D8'}" stroke-width="${maj?0.8:0.5}"/>`;
+ if(maj) lv+=`<text x="${gx-4}" y="${y+3}" text-anchor="end" font-size="8" font-family="Consolas,JetBrains Mono" fill="#141413">${z.toFixed(1)}</text>`;}
+o+=`<defs><clipPath id="fig"><rect x="${gx}" y="${gy}" width="${gw}" height="${gh}"/></clipPath></defs>`; o+=lv;
+// 입면+단면선 이미지 (거리 19~37.5 m, 표고 61.5~54.5)
+const iw=18.5*s, ih=7*s; o+=`<image href="assets/section_zoom.png" x="${gx}" y="${gy+(zTop-61.5)*s}" width="${Math.min(iw,gw)}" height="${ih}" preserveAspectRatio="xMaxYMin slice" clip-path="url(#fig)"/>`;
+const yb=gy+(zTop-57)*s; o+=`<line x1="${gx}" x2="${gx+gw}" y1="${yb}" y2="${yb}" stroke="#141413" stroke-dasharray="4 3" stroke-width=".8"/><text x="${gx+4}" y="${yb-3}" font-size="7.5" font-family="Malgun Gothic,Noto Sans CJK KR">기준선 EL. 57.00 m</text>`;
+o+=`<text x="${gx+gw-14}" y="${gy+12}" font-size="12" font-weight="700" font-family="Noto Serif CJK KR" fill="#141413">A′</text>`;
+// 축척 막대
+const sbx=fx+12, sby=fy+fh+16; o+=`<rect x="${sbx}" y="${sby}" width="${s}" height="4" fill="#141413"/><rect x="${sbx+s}" y="${sby}" width="${s}" height="4" fill="#fff" stroke="#141413" stroke-width=".6"/><text x="${sbx}" y="${sby+14}" font-size="7.5" font-family="Consolas,JetBrains Mono">0</text><text x="${sbx+2*s}" y="${sby+14}" font-size="7.5" font-family="Consolas,JetBrains Mono" text-anchor="middle">2 m</text>`;
+// 표제란
+const tx=fx+fw-200, ty=fy+fh+2; o+=`<rect x="${tx}" y="${ty}" width="200" height="44" fill="#fff" stroke="#141413" stroke-width=".8"/><line x1="${tx}" x2="${tx+200}" y1="${ty+20}" y2="${ty+20}" stroke="#141413" stroke-width=".5"/>
+<text x="${tx+8}" y="${ty+15}" font-size="11" font-family="Noto Serif CJK KR" font-weight="500">A–A′ 단면도 · 1호 수혈</text>
+<text x="${tx+8}" y="${ty+31}" font-size="7" font-family="Malgun Gothic,Noto Sans CJK KR" fill="#3D3D3A">축척 1 : 40 · 북쪽을 봄 · 2026-10-06</text>
+<text x="${tx+8}" y="${ty+40}" font-size="7" font-family="Malgun Gothic,Noto Sans CJK KR" fill="#3D3D3A">수평 EPSG:5186 중부원점 · 높이 EGM96 (EPSG:5773)</text>`;
+document.getElementById('pp').innerHTML=o;
+</script>
+<script src="icons.js"></script>
+</body></html>

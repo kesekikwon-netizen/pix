@@ -1,0 +1,60 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><link rel="stylesheet" href="common.css">
+<style>
+body{width:1600px;height:1000px}.win{width:1600px;height:1000px}
+.ribbon .tile{opacity:.45}.ribbon .tile.live{opacity:1}
+.home{position:absolute;top:172px;left:0;right:0;bottom:30px;padding:28px 40px;display:grid;grid-template-columns:1fr 380px;gap:32px}
+.card{background:#fff;border:1px solid var(--edge);border-radius:4px}
+.hero{display:grid;grid-template-columns:1fr 300px}
+.hero .l{padding:20px 24px;border-right:1px solid var(--line)}
+.hero .r{padding:20px 24px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.kv{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);margin-top:16px}
+.kv div{padding:10px 0 0;font-size:12px}.kv b{display:block;font-weight:400;color:var(--muted);font-size:11px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{font-size:11px;font-weight:400;color:var(--muted);text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);border-top:2px solid var(--ink)}
+td{padding:10px 8px;border-bottom:1px solid var(--line)} tr:last-child td{border-bottom:2px solid var(--ink)}
+.drop{border:1.5px dashed var(--ring);border-radius:12px;height:120px;display:flex;align-items:center;justify-content:center;gap:16px;color:var(--muted);background:var(--wash)}
+.step{display:flex;gap:12px;padding:10px 0}
+.drop svg{width:28px;height:28px;fill:none;stroke:var(--muted);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.step .n{width:24px;height:24px;border-radius:50%;border:1px solid var(--ink);display:flex;align-items:center;justify-content:center;font:12px var(--mono)}
+</style></head><body><div class="win">
+ <div class="titlebar"><span class="logo"></span><span>발굴 단면뷰어 1.2</span><span class="sp"></span><span class="faint">─ ☐ ✕</span></div>
+ <div class="tabs"><div class="tab">파일</div><div class="tab on">홈</div><div class="tab">보기</div><div class="tab">측정</div><div class="tab">내보내기</div></div>
+ <div class="ribbon">
+  <div class="grp"><div class="gname">파일</div><div class="row"><div class="tile live"><div class="sq" data-ic="open"></div><span>열기</span></div><div class="tile live"><div class="sq" data-ic="recent"></div><span>최근 ▾</span></div></div></div>
+  <div class="grp"><div class="gname">단면</div><div class="row"><div class="tile"><div class="sq" data-ic="draw"></div><span>단면선</span></div></div></div>
+  <div class="grp"><div class="gname">단면 표시</div><div class="row"><div class="tile"><div class="sq" data-ic="image"></div><span>입면 영상</span></div><div class="tile"><div class="sq" data-ic="cut"></div><span>단면선</span></div><div class="tile"><div class="sq" data-ic="levels"></div><span>레벨선</span></div></div></div>
+  <div class="grp"><div class="gname">내보내기</div><div class="row"><div class="tile"><div class="sq" data-ic="preview"></div><span>도면</span></div></div></div>
+ </div>
+ <div class="home" style="top:172px">
+  <div>
+   <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:6px"><span class="serif" style="font-size:28px;line-height:36px">발굴 단면뷰어</span><span class="muted">3MX 실사 모델에서 단면도까지</span></div>
+   <div class="muted" style="font-size:15px;line-height:24px;margin-bottom:20px">지난 모델을 이어서 열거나, 새 3MX 파일을 여세요.</div>
+   <div class="card hero"><div class="l"><div class="faint" style="font-size:11px">이어서 작업</div><div class="serif" style="font-size:40px;line-height:48px;margin-top:4px">제주 Production_2</div>
+     <div class="mono faint" style="font-size:11px">E:\new project jeju1\Productions\Production_2\Scene\Production_2.3mx</div>
+     <div class="kv"><div><b>마지막으로 연 때</b>오늘 09:12</div><div><b>단면</b>A–A′ 외 2개</div><div><b>좌표계</b><span class="mono">5186</span> 중부원점</div><div><b>높이 기준</b>EGM96 <span class="faint">지정함</span></div></div></div>
+    <div class="r"><span class="btn primary" style="height:40px;justify-content:center">이어서 열기 →</span><span class="faint" style="font-size:12px;text-align:center">단면선·두께·화면 위치를 그대로 되살립니다</span></div></div>
+   <div style="display:flex;align-items:center;margin:28px 0 8px"><b>최근 모델</b><span class="faint" style="margin-left:6px">3</span></div>
+   <table><tr><th>모델</th><th>좌표계 · 높이</th><th>단면</th><th>크기</th><th style="text-align:right">마지막으로 연 때</th></tr>
+    <tr><td>제주 Production_2<div class="faint mono" style="font-size:11px">E:\new project jeju1\…\Production_2.3mx</div></td><td><span class="mono">5186</span> · EGM96</td><td>3</td><td class="mono">139 MB</td><td class="mono" style="text-align:right">오늘 09:12</td></tr>
+    <tr><td>광령리1 북구역<div class="faint mono" style="font-size:11px">D:\발굴\광령리1\3mx\Scene.3mx</div></td><td><span class="mono">5186</span> · <span style="color:var(--caution)">▲ 타원체고 확인 필요</span></td><td>1</td><td class="mono">2.1 GB</td><td class="mono" style="text-align:right">어제 17:42</td></tr>
+    <tr><td style="color:var(--faint)">병산동 시굴<div class="mono" style="font-size:11px">F:\SD\병산동\Scene.3mx</div></td><td class="muted"><span style="color:var(--block)">●</span> 원본 없음</td><td>–</td><td>–</td><td class="mono" style="text-align:right">9월 12일</td></tr>
+   </table>
+   <div class="drop" style="margin-top:24px"><span data-ic="open" style="width:28px;height:28px;display:inline-block"></span><span style="font-size:15px">3MX 파일이나 폴더를 여기에 끌어 놓으세요</span><span class="faint">또는</span><span class="btn">파일 열기 <span class="kbd">Ctrl+O</span></span></div>
+  </div>
+  <div>
+   <div style="font-weight:700;margin:42px 0 8px">세 걸음으로 단면도</div>
+   <div class="card" style="padding:8px 16px">
+    <div class="step"><span class="n">1</span><div>모델 열기<div class="muted" style="font-size:12px">좌표계와 높이 기준을 바로 확인합니다. 모르면 노란 띠로 알립니다.</div></div></div>
+    <div class="step"><span class="n">2</span><div>단면선 긋기 <span class="kbd">S</span><div class="muted" style="font-size:12px">평면에서 A, A′ 두 점. 뒤 깊이는 0.5 / 1 / 2 / 5 m 단추로.</div></div></div>
+    <div class="step"><span class="n">3</span><div>도면 만들기 <span class="kbd">Ctrl+P</span><div class="muted" style="font-size:12px">1:20 · 1:40 미리보기에서 용지를 보고 PDF·DXF로 저장합니다.</div></div></div>
+   </div>
+   <div style="font-weight:700;margin:24px 0 8px">자주 쓰는 키</div>
+   <div class="card" style="padding:10px 16px;font-size:12px;line-height:26px">
+    <div><span class="kbd">S</span> 단면선 &nbsp; <span class="kbd">R</span> 방향 반전 &nbsp; <span class="kbd">[</span><span class="kbd">]</span> 평행 이동</div>
+    <div><span class="kbd">1</span>–<span class="kbd">5</span> 뒤 깊이 0.5·1·2·3·5 m &nbsp; <span class="kbd">F</span> 맞춤</div>
+    <div><span class="kbd">Ctrl+Z</span> 되돌리기 &nbsp; <span class="kbd">Ctrl+P</span> 도면 &nbsp; <span class="kbd">F1</span> 키 목록</div>
+   </div>
+  </div>
+ </div>
+ <div class="status"><span>모델을 열면 좌표계와 높이 기준이 여기 늘 보입니다.</span><span class="sp"></span><span class="faint">좌표계 —</span></div>
+</div><script src="icons.js"></script></body></html>

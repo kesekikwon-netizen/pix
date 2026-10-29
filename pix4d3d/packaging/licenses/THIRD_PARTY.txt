@@ -1,0 +1,19 @@
+발굴 단면뷰어 — 사용한 외부 구성요소와 라이선스
+=================================================
+
+1) Qt 6.8.3 (Core, Gui, Widgets, OpenGL, OpenGLWidgets) — The Qt Company Ltd.
+   LGPL-3.0 (LGPL-3.0.txt, GPL-3.0.txt). 수정하지 않은 Qt DLL 을 동적으로 연결합니다.
+   Qt DLL 은 같은 이름·같은 ABI 의 다른 빌드로 바꿔 쓸 수 있습니다. 소스: https://download.qt.io/
+   함께 배포: opengl32sw.dll (Mesa llvmpipe, MIT), MinGW 런타임 DLL
+   (libstdc++-6 / libgcc_s_seh-1: GPL-3.0 + GCC Runtime Library Exception, libwinpthread-1: MIT/BSD).
+
+2) OpenCTM 1.0.3 — Marcus Geelnard. zlib 라이선스 (OpenCTM-zlib.txt). LZMA SDK(공개 도메인) 포함.
+
+3) stb_image / stb_image_write — Sean Barrett. 공개 도메인 또는 MIT (사용자 선택).
+
+4) nlohmann/json 3.11.3 — Niels Lohmann. MIT.
+
+5) Catch2 3.7.1 (시험 전용, 배포 파일에는 포함되지 않음) — BSL-1.0.
+
+3MX 형식은 Bentley Systems 가 공개한 3MX 사양에 따라 직접 읽습니다. 이 프로그램은 Bentley Systems 와 관계가 없으며,
+Bentley 의 코드·아이콘·로고를 사용하지 않습니다.

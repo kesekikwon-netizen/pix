@@ -1,0 +1,13 @@
+build*/
+dist/
+*.user
+__pycache__/
+/tmp/
+# UI 참고 자료: 9 MB 번들과 큰/부수 캡처는 저장소에 넣지 않음(상자 research/ui-ref/ 에만 있음)
+research/ui-ref/reference.html
+research/ui-ref/shots/00_*.png
+research/ui-ref/shots/02_home.png
+research/ui-ref/shots/03_records_layers_review.png
+research/ui-ref/shots/05_dialogs.png
+research/ui-ref/shots/06_splash_5s.png
+research/ui-ref/shots/vp*.png
